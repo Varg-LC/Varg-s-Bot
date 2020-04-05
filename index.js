@@ -16,11 +16,11 @@ bot.on('ready', () => {
 })
 
 bot.on('message', message=>{
+    //if (!message.content.startsWith(prefix)) return;
     if (!message.author.bot){
 
     let args = message.content.substring(PREFIX.length).split(" ");
-
-   
+  
     if (message.content.search(/Loth/i) > -1 ){
         var arrLoth = [
         "Ave Cesar, rosae rosam, et spiritus rex !\nAh non, parce que là, j’en ai marre !",
@@ -61,10 +61,10 @@ bot.on('message', message=>{
 
     //Voice chat Kaamelott
     if (message.content.charAt(0) === "!" ) {
-        for(var j = 0; j < arrayList.length ; j++){
-            var texte = arrayList[j];
-            var position = j;
-            if (message.content.search(/texte/i) > -1 ) {
+        for(var i = 0; i < arrayList.length ; i++){
+            var texte = arrayList[i]
+            if (message.content.search(texte.toLowerCase()) > -1 ) {
+                var position = i;
                 // Si il est sur un channel de discution vocale
                 if (message.member.voice.channel) {
                     // Je récupère le channel
