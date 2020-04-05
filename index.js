@@ -7,13 +7,16 @@ const sounds = './Sounds/';
 
 let points = JSON.parse(fs.readFileSync("./points.json", "utf8"));
 
+var arrayList = new Array()
+arrayList = ["poils", "héro", "ah c'est ça", "crame mecs", "c'est nous", "alternative", "boire", "bite", "miches", "fôret", "je sais pas", "parler", "arthur", "fromage", "chance", "ave", "kadoc", "volette", "assassin", "tard", "roulettes", "raison", "bataille", "manger", "bohort", "dinde", "pédagogie", "révolte", "cassez", "bucher", "au bucher", "bucher !", "burgonde", "les autres", "change", "discussion", "vite", "vomis", "glander", "bien fait", "histoire", "c'est de la merde", "dur", "honteux", "glandus", "ambiance", "flèches", "faux", "faux", "rigolo", "sinécure", "filiforme", "prodigieux", "blague", "reste", "picole", "charmant", "marteau", "chier", "comment", "bèche", "boules", "crame", "cramer", "cuillère", "cuillère arthur", "comprend", "vêtement", "trou du cul", "nord", "tirez vous", "tocard", "écarte", "poulette", "enquille", "pute", "mignone", "épique", "barrer", "pigeon", "permis", "merde", "encore", "quelqu'un", "exagerer", "à la zob", "faut", "ferme", "féderer", "ta gueule", "à poil", "unijambiste", "fleur", "pomme", "fort en pomme", "notice", "fulgurant", "cul", "c'est ça", "porcelet", "connais pas", "beau", "code", "pue", "tatan", "pisser", "insipide", "interprète", "comaque", "cherche", "entendu", "tronches", "paysan", "dit fort", "perdu", "graines", "poney", "battre", "capital", "cons", "plein air", "je vois", "bretagne", "trouble", "vivre", "vous dire", "vous faut", "raclette", "confiance", "pas chez moi", "enlever", "caisse", "idiote", "à l'air", "bouffe", "carbure", "gerbe", "monstruosité", "canard", "pigeons", "graal", "gras", "pognon", "poisson", "qui l'ouvre", "parole", "fiolle", "discutailler", "pas possible", "sont pour rien", "important", "emmerde", "foutre", "dingue", "tout à fait", "développer", "forme", "femme", "mécréant", "mécréant !", "merci", "météo", "beurre", "ours", "gonzesse", "armure", "toujours dit", "toujours dit que", "écoute", "école", "mordu", "taisez vous", "pusso", "vacherie", "marre", "vache", "défis", "gros", "fort", "plaisante", "alcool", "galette", "lapin", "son nom", "conne", "indépendant", "corne", "diagonale", "sang", "plait-il", "politique", "pourquoi pas", "et pourquoi pas", "gueule", "détail", "vent", "connerie", "pucelle", "grouille", "fort ce con", "que ceci", "raide", "savoir pourquoi", "fâche", "quequette", "quies", "ranger", "slibard", "crêpe", "carer", "déconner", "charrette", "scorpion", "attache", "faisant", "vendeur", "du cul", "gros cul", "glands", "crêpes", "flan", "pequenauds", "très bien", "la ferme", "execution", "quart d'heure", "cake", "fion", "foutre la merde", "pro", "merdique", "tarlouze", "admettez", "mouilles", "déconnez", "con", "crache", "utilisez", "rigole", "nuque", "impressionnant", "mortel", "zut"]
+
 bot.on('ready', () => {
     console.log('Online!');
 })
 
 bot.on('message', message=>{
     //if (!message.content.startsWith(prefix)) return;
-    if (message.author.bot) return;
+    if (!message.author.bot){
 
     let args = message.content.substring(PREFIX.length).split(" ");
 
@@ -70,43 +73,41 @@ bot.on('message', message=>{
     }
 
     //Voice chat Kaamelott
-    if (message.content.search(/Dis/i) > -1 ) {
-        
-        // Si il est sur un channel de discution vocale
-        if (message.member.voice.channel) {
-            // Je récupère le channel
-            let voiceChannel = message.member.voice.channel;
-            
-            // Je m'y connecte
-            voiceChannel
-                .join()
-                .then(connection => {
-                    // J'ouvre le dossier des sons de kaamelott
-                    fs.readdir(sounds, (err, files) => {
-                        // J'en récupère un au hazard
-                        var sound = files[Math.floor((Math.random() * files.length) + 1)];
-                        //console.log("🤖 " + member.user.tag + " played the sound : " + sound);
-                        //message.channel.send("🤖 " + message.member + " played the sound : " + sound);
-                        // Je le lis dans le channel ou je me suis connecté
-                        connection.play(sounds + sound);
-                    });
-                })
-                .catch((err) => {
-                    //console.log(err);
-                    message.channel.send(err);
-                });
-        } else {
-            // Si l'utilisateur n'est pas sur un channel on le remercie poliment
-            message.channel.send('You shall not pass away from audio channel...');
-        }
-    }
-
+    //if (message.content.charAt(0) === "!" ) {
+        for(var i = 0; i < arrayList.length ; i++){
+            if (message.content.search(arrayList[i]) > -1 ) {
+                var position = i;
+                // Si il est sur un channel de discution vocale
+                if (message.member.voice.channel) {
+                    // Je récupère le channel
+                    let voiceChannel = message.member.voice.channel;
+                    
+                    // Je m'y connecte
+                    voiceChannel
+                        .join()
+                        .then(connection => {
+                            // J'ouvre le dossier des sons de kaamelott
+                            fs.readdir(sounds, (err, files) => {
+                                var sound = files[position];
+                                connection.play(sounds + sound);
+                            });
+                        })
+                        .catch((err) => {
+                            //console.log(err);
+                            message.channel.send(err);
+                        });
+                } else {
+                    // Si l'utilisateur n'est pas sur un channel on le remercie poliment
+                    //message.channel.send('You shall not pass away from audio channel...');
+                }
+    
+    }}//}
     //Clear messages channel
     if (message.content === "Clear Channel"){
         if (message.author.id === '298852151638097920'){
             message.channel.bulkDelete(100)
         }
     }
-})
+}})
 
 bot.login(token);
