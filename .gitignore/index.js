@@ -79,25 +79,30 @@ bot.on('message', message=>{
     //Voice chat Kaamelott
     if (message.content.search(/Dis/i) > -1 ) {
         let member = message.member;
+        message.channel.send(member);
         if (typeof member.voiceChannel !== "undefined") {
             // Je récupère le channel
             let voiceChannel = member.voiceChannel;
+            message.channel.send(voiceChannel);
+            
             // Je m'y connecte
             voiceChannel
-            .join()
-            .then(connection => {
-                // J'ouvre le dossier des sons de kaamelott
-                fs.readdir(sounds, (err, files) => {
-                    // J'en récupère un au hazard
-                    var sound = files[Math.floor((Math.random() * files.length) + 1)];
-                    console.log("🤖 " + member.user.tag + " played the sound : " + sound);
-                    // Je le lis dans le channel ou je me suis connecté
-                    connection.playFile(sounds + sound);
+                .join()
+                .then(connection => {
+                    // J'ouvre le dossier des sons de kaamelott
+                    fs.readdir(sounds, (err, files) => {
+                        // J'en récupère un au hazard
+                        var sound = files[Math.floor((Math.random() * files.length) + 1)];
+                        //console.log("🤖 " + member.user.tag + " played the sound : " + sound);
+                        message.channel.send("🤖 " + member.user.tag + " played the sound : " + sound);
+                        // Je le lis dans le channel ou je me suis connecté
+                        connection.playFile(sounds + sound);
+                    });
+                })
+                .catch((err) => {
+                    //console.log(err);
+                    message.channel.send(err);
                 });
-            })
-            .catch((err) => {
-                console.log(err);
-        });
         } else {
             // Si l'utilisateur n'est pas sur un channel on le remercie poliment
             message.channel.send('You shall not pass away from audio channel...');
