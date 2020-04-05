@@ -26,7 +26,7 @@ bot.on('message', message=>{
             message.channel.send('De rien')
             break;
         case 'Hey':
-            var arrLoth = ["Ave Cesar, rosae rosam, et spiritus rex !\nAh non, parce que là, j’en ai marre !", "Tempora mori, tempora mundis recorda.", 
+            var arrLoth = ["Ave Cesar, rosae rosam, et spiritus rex !\nAh non, parce que là, j’en ai marre !", "Tempora mori, tempora mundis recorda.\nVoilà.\nEh bien ça, par exemple, ça veut absolument rien dire, mais l’effet reste le même,\net pourtant j’ai jamais foutu les pieds dans une salle de classe attention !", 
                 "Victoriae mundis et mundis lacrima.", "Mundi placet et spiritus minima", 
                 "Pourquoi trahir sans arrêt les gens avec qui je collabore ?\nJe dirais que c\'est probablement une réponse compulsive à une crainte de m\'attacher.\nBriser une relation plutôt que la cultiver pour ne pas se retrouver démuni face au bonheur.\nOui, pour répondre à votre question : j\'ai peur d'aimer !"]; 
 
