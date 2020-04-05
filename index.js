@@ -86,7 +86,7 @@ bot.on('message', message=>{
                         // J'en récupère un au hazard
                         var sound = files[Math.floor((Math.random() * files.length) + 1)];
                         //console.log("🤖 " + member.user.tag + " played the sound : " + sound);
-                        message.channel.send("🤖 " + message.member + " played the sound : " + sound);
+                        //message.channel.send("🤖 " + message.member + " played the sound : " + sound);
                         // Je le lis dans le channel ou je me suis connecté
                         connection.play(sounds + sound);
                     });
