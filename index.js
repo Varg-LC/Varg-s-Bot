@@ -1,7 +1,7 @@
 const Discord = require('discord.js');
 const fs = require("fs");
 const bot = new Discord.Client();
-const token = 'Njk2MTE4MzcwNDY2MTM2MDc1.Xooumg.adbGlJZRPQftka26V488PQPdDMc';
+const token = '';
 const PREFIX = ""
 const sounds = './Sounds/';
 
@@ -69,7 +69,7 @@ bot.on('message', message=>{
     }
 
     //Voice chat Kaamelott
-    //if (message.content.charAt(0) === "!" ) {
+    if (message.content.charAt(0) === "!" ) {
         for(var i = 0; i < arrayList.length ; i++){
             var texte = arrayList[i]
             if (message.content.search(/texte/i) > -1 ) {
@@ -112,7 +112,7 @@ bot.on('message', message=>{
                     //message.channel.send('You shall not pass away from audio channel...');
                 }
     
-    }}//}
+    }}}
     //Clear messages channel
     if (message.content === "Clear Channel"){
         if (message.author.id === '298852151638097920'){
@@ -121,4 +121,4 @@ bot.on('message', message=>{
     }
 }})
 
-bot.login(token);
+bot.login(process.env.TOKEN);
