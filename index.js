@@ -71,13 +71,13 @@ bot.on('message', message=>{
 
     //Voice chat Kaamelott
     if (message.content.search(/Dis/i) > -1 ) {
+        // On récupère l'utilisateur qui a demandé une action
         let member = message.member;
-        let voiceChannel = member.voiceChannel;
-        message.channel.send(voiceChannel);
-        /*if (typeof member.voiceChannel !== "undefined") {
+
+        // Si il est sur un channel de discution vocale
+        if (typeof member.voice.channel !== "undefined") {
             // Je récupère le channel
-            let voiceChannel = member.voiceChannel;
-            message.channel.send(voiceChannel);
+            let voiceChannel = member.voice.channel;
             
             // Je m'y connecte
             voiceChannel
@@ -100,7 +100,7 @@ bot.on('message', message=>{
         } else {
             // Si l'utilisateur n'est pas sur un channel on le remercie poliment
             message.channel.send('You shall not pass away from audio channel...');
-        }*/    
+        }
     }
 
     //Clear messages channel
