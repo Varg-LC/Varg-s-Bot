@@ -61,9 +61,9 @@ bot.on('message', message=>{
 
     //Voice chat Kaamelott
     if (message.content.charAt(0) === "!" ) {
-        for(var i = 0; i < arrayList.length ; i++){
-            var texte = arrayList[i]
-            if (message.content.search(texte.toLowerCase()) > -1 ) {
+        var msg = message.content.toLowerCase()
+        for(var i = 0; i < arrayList.length ; i++){            
+            if (msg.search(arrayList[i]) > -1 ) {
                 var position = i;
                 // Si il est sur un channel de discution vocale
                 if (message.member.voice.channel) {
