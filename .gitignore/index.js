@@ -1,7 +1,7 @@
 const Discord = require('discord.js');
 const fs = require("fs");
 const bot = new Discord.Client();
-const token = 'Njk2MTE4MzcwNDY2MTM2MDc1.XokHHw.4BajRfYvu_UD5UX3EO5PZqIeGbo';
+const token = '';
 const PREFIX = ""
 
 let points = JSON.parse(fs.readFileSync("./points.json", "utf8"));
@@ -74,4 +74,4 @@ bot.on('message', message=>{
     }
 })
 
-bot.login(token);
+bot.login(process.env.TOKEN);
