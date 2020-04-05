@@ -69,17 +69,10 @@ bot.on('message', message=>{
         message.channel.send(embed);
     }
 
-    //Clear messages channel
-    if (message.content === "Clear Channel"){
-        if (message.author.id === '298852151638097920'){
-            message.channel.bulkDelete(100)
-        }
-    }
-
     //Voice chat Kaamelott
     if (message.content.search(/Dis/i) > -1 ) {
-        let member = message.member;
-        message.channel.send('heeloo');
+        let membre = message.author.id
+        message.channel.send(membre);
         if (typeof member.voiceChannel !== "undefined") {
             // Je récupère le channel
             let voiceChannel = member.voiceChannel;
@@ -107,6 +100,13 @@ bot.on('message', message=>{
             // Si l'utilisateur n'est pas sur un channel on le remercie poliment
             message.channel.send('You shall not pass away from audio channel...');
         }    
+    }
+
+    //Clear messages channel
+    if (message.content === "Clear Channel"){
+        if (message.author.id === '298852151638097920'){
+            message.channel.bulkDelete(100)
+        }
     }
 })
 
