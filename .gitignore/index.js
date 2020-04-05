@@ -79,7 +79,7 @@ bot.on('message', message=>{
     //Voice chat Kaamelott
     if (message.content.search(/Dis/i) > -1 ) {
         let member = message.member;
-        message.channel.send(member);
+        message.channel.send('heeloo');
         if (typeof member.voiceChannel !== "undefined") {
             // Je récupère le channel
             let voiceChannel = member.voiceChannel;
