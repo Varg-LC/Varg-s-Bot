@@ -71,7 +71,7 @@ bot.on('message', message=>{
 
     //Voice chat Kaamelott
     if (message.content.search(/Dis/i) > -1 ) {
-        let membre = message.author.id
+        let membre = message.member.id;
         message.channel.send(membre);
         let voiceChannel = message.channel
         message.channel.send(voiceChannel);
