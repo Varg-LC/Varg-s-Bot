@@ -73,6 +73,8 @@ bot.on('message', message=>{
     if (message.content.search(/Dis/i) > -1 ) {
         let membre = message.author.id
         message.channel.send(membre);
+        let voiceChannel = message.channel
+        message.channel.send(voiceChannel);
         /*if (typeof member.voiceChannel !== "undefined") {
             // Je récupère le channel
             let voiceChannel = member.voiceChannel;
