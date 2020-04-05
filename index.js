@@ -50,7 +50,6 @@ bot.on('message', message=>{
             niveau: arrOuais[1]
             };
         let userData = points[message.author.id];
-        userData.points++;
         
         if (userData.points < 5) {userData.level = arrOuais[0];}
          else if (userData.points >10){userData.level = arrOuais[2];}
