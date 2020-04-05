@@ -1,7 +1,7 @@
 const Discord = require('discord.js');
 const fs = require("fs");
 const bot = new Discord.Client();
-const token = '';
+const token = 'Njk2MTE4MzcwNDY2MTM2MDc1.Xooumg.adbGlJZRPQftka26V488PQPdDMc';
 const PREFIX = ""
 const sounds = './Sounds/';
 
@@ -71,13 +71,11 @@ bot.on('message', message=>{
 
     //Voice chat Kaamelott
     if (message.content.search(/Dis/i) > -1 ) {
-        // On récupère l'utilisateur qui a demandé une action
-        let member = message.member;
-
+        
         // Si il est sur un channel de discution vocale
-        if (typeof member.voice.channel !== "undefined") {
+        if (message.member.voice.channel) {
             // Je récupère le channel
-            let voiceChannel = member.voice.channel;
+            let voiceChannel = message.member.voice.channel;
             
             // Je m'y connecte
             voiceChannel
@@ -88,9 +86,9 @@ bot.on('message', message=>{
                         // J'en récupère un au hazard
                         var sound = files[Math.floor((Math.random() * files.length) + 1)];
                         //console.log("🤖 " + member.user.tag + " played the sound : " + sound);
-                        message.channel.send("🤖 " + member.user.tag + " played the sound : " + sound);
+                        message.channel.send("🤖 " + message.member + " played the sound : " + sound);
                         // Je le lis dans le channel ou je me suis connecté
-                        connection.playFile(sounds + sound);
+                        connection.play(sounds + sound);
                     });
                 })
                 .catch((err) => {
@@ -111,4 +109,4 @@ bot.on('message', message=>{
     }
 })
 
-bot.login(process.env.TOKEN);
+bot.login(token);
