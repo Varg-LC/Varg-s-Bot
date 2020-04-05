@@ -9,6 +9,7 @@ let points = JSON.parse(fs.readFileSync("./points.json", "utf8"));
 
 var arrayList = new Array()
 arrayList = ["poils", "héro", "ah c'est ça", "crame mecs", "c'est nous", "alternative", "boire", "bite", "miches", "fôret", "je sais pas", "parler", "arthur", "fromage", "chance", "ave", "kadoc", "volette", "assassin", "tard", "roulettes", "raison", "bataille", "manger", "bohort", "dinde", "pédagogie", "révolte", "cassez", "bucher", "au bucher", "bucher !", "burgonde", "les autres", "change", "discussion", "vite", "vomis", "glander", "bien fait", "histoire", "c'est de la merde", "dur", "honteux", "glandus", "ambiance", "flèches", "faux", "faux", "rigolo", "sinécure", "filiforme", "prodigieux", "blague", "reste", "picole", "charmant", "marteau", "chier", "comment", "bèche", "boules", "crame", "cramer", "cuillère", "cuillère arthur", "comprend", "vêtement", "trou du cul", "nord", "tirez vous", "tocard", "écarte", "poulette", "enquille", "pute", "mignone", "épique", "barrer", "pigeon", "permis", "merde", "encore", "quelqu'un", "exagerer", "à la zob", "faut", "ferme", "féderer", "ta gueule", "à poil", "unijambiste", "fleur", "pomme", "fort en pomme", "notice", "fulgurant", "cul", "c'est ça", "porcelet", "connais pas", "beau", "code", "pue", "tatan", "pisser", "insipide", "interprète", "comaque", "cherche", "entendu", "tronches", "paysan", "dit fort", "perdu", "graines", "poney", "battre", "capital", "cons", "plein air", "je vois", "bretagne", "trouble", "vivre", "vous dire", "vous faut", "raclette", "confiance", "pas chez moi", "enlever", "caisse", "idiote", "à l'air", "bouffe", "carbure", "gerbe", "monstruosité", "canard", "pigeons", "graal", "gras", "pognon", "poisson", "qui l'ouvre", "parole", "fiolle", "discutailler", "pas possible", "sont pour rien", "important", "emmerde", "foutre", "dingue", "tout à fait", "développer", "forme", "femme", "mécréant", "mécréant !", "merci", "météo", "beurre", "ours", "gonzesse", "armure", "toujours dit", "toujours dit que", "écoute", "école", "mordu", "taisez vous", "pusso", "vacherie", "marre", "vache", "défis", "gros", "fort", "plaisante", "alcool", "galette", "lapin", "son nom", "conne", "indépendant", "corne", "diagonale", "sang", "plait-il", "politique", "pourquoi pas", "et pourquoi pas", "gueule", "détail", "vent", "connerie", "pucelle", "grouille", "fort ce con", "que ceci", "raide", "savoir pourquoi", "fâche", "quequette", "quies", "ranger", "slibard", "crêpe", "carer", "déconner", "charrette", "scorpion", "attache", "faisant", "vendeur", "du cul", "gros cul", "glands", "crêpes", "flan", "pequenauds", "très bien", "la ferme", "execution", "quart d'heure", "cake", "fion", "foutre la merde", "pro", "merdique", "tarlouze", "admettez", "mouilles", "déconnez", "con", "crache", "utilisez", "rigole", "nuque", "impressionnant", "mortel", "zut"]
+var arrOuais = ["Initié", "Connaisseur", "AbsolutMotherFucker"]
 
 bot.on('ready', () => {
     console.log('Online!');
@@ -21,13 +22,13 @@ bot.on('message', message=>{
     let args = message.content.substring(PREFIX.length).split(" ");
 
     //Kaamelott texte  
-    if (message.content.search(/poulette/i) > -1 ){
+    /*if (message.content.search(/poulette/i) > -1 ){
         message.channel.send('Elle est bien cachée !');
     }         
 
     if (message.content.search(/merci/i) > -1 ){
         message.channel.send('De rien !');
-    }
+    }*/
     
     if (message.content.search(/Loth/i) > -1 ){
         var arrLoth = [
@@ -41,20 +42,16 @@ bot.on('message', message=>{
         message.channel.send(arrLoth[Math.floor(Math.random()*arrLoth.length)]);
     } 
          
-    //Jeux du ouais! 
-    if (message.content.search(/ouais/i) > -1 ){
-        var arrOuais = ["Ouais c'est bon ça !", "Trop de ouais...", "AbsolutMotherFuckingOuais"]
+    //Points kaamelott
+    if (message.content === '!Kaamelott' ){
 
         if (!points[message.author.id]) points[message.author.id] = {
             points: 0,
             niveau: arrOuais[1]
             };
-
         let userData = points[message.author.id];
         userData.points++;
         
-        if (message.content.search(/clear/i) > -1 ){userData.points = 1};
-
         if (userData.points < 5) {userData.level = arrOuais[0];}
          else if (userData.points >10){userData.level = arrOuais[2];}
          else {userData.level = arrOuais[1];}
@@ -64,7 +61,7 @@ bot.on('message', message=>{
         });
         
         const embed = new Discord.MessageEmbed()
-        .setTitle('Jeux du ouais !')
+        .setTitle('Kaamelott sounds')
         .addField('Nom', message.author.username, true)
         .addField('Points', userData.points, true)
         .addField('Niveau', userData.level)
@@ -90,6 +87,20 @@ bot.on('message', message=>{
                             fs.readdir(sounds, (err, files) => {
                                 var sound = files[position];
                                 connection.play(sounds + sound);
+                                if (!points[message.author.id]) points[message.author.id] = {
+                                    points: 0,
+                                    niveau: arrOuais[1]
+                                    };
+                                let userData = points[message.author.id];
+                                userData.points++;
+                                
+                                if (userData.points < 5) {userData.level = arrOuais[0];}
+                                 else if (userData.points >10){userData.level = arrOuais[2];}
+                                 else {userData.level = arrOuais[1];}
+                            
+                                fs.writeFile("./points.json", JSON.stringify(points), (err) => {
+                                if (err) console.error(err)
+                                });
                             });
                         })
                         .catch((err) => {
