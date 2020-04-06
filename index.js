@@ -48,6 +48,7 @@ bot.on('message', message=>{
         const embedAide = new Discord.MessageEmbed()
         .setColor('#6a8c91')
         .setTitle('A propos de Kaamelot Bot')
+        .setURL('https://github.com/Varg-LC/Varg-s-Bot.git')
         .setDescription('Citations audio et texte issues de Kaamelott')
         .addFields(
             //{ name: '\u200B', value: '\u200B' },
