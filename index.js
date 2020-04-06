@@ -3,9 +3,12 @@ const fs = require("fs");
 const bot = new Discord.Client();
 const token = '';
 
-const PREFIX = "KML"
+EventEmitter=require('events').EventEmitter,
+filesEE=new EventEmitter();
+
+const PREFIX = "KM"
 const sounds = './Sounds/';
-const playedGame = 'écrire : KML Aide';
+const playedGame = 'écrire : KM Aide';
 
 let points = JSON.parse(fs.readFileSync("./points.json", "utf8"));
 
@@ -20,9 +23,16 @@ var listeCitaLoth = [
     "Moi, quand ma garce de femme est là, ça déménage pas mal aussi… Hier, elle m’a fendu le tibia avec une amphore, la salope !"
 ]; 
 
+var listSons = new Array()
+fs.readdir(sounds, function (err, files) { if (err) throw err;
+    files.forEach( function (file) {
+        listSons.push(file);     
+    });
+});
+
 /*_________Quand le bot se login_________*/
 bot.on('ready', () => {
-    console.log('Bot is online');
+    console.log('Le Bot est en ligne');
     bot.user.setActivity(playedGame).catch(console.error);
 })
 
@@ -33,7 +43,7 @@ bot.on('message', message=>{
 
     var msg = message.content.toLowerCase()
 
-    if (msg.search(/aide/i) > -1 ){
+    if (msg.search('aide') > -1 ){
         //Affiche l'aide
         const embedAide = new Discord.MessageEmbed()
         .setColor('#6a8c91')
@@ -41,20 +51,21 @@ bot.on('message', message=>{
         .setDescription('Citations audio et texte issues de Kaamelott')
         .addFields(
             //{ name: '\u200B', value: '\u200B' },
-            { name: 'Préfix : KML', value: 'Liste des mots clés : KML List. Scores : KML Kaamelott' })
+            { name: 'Préfix : KM', value: 'Liste des mots clés : KML List. Scores : KM Kaamelott' })
         .setImage('https://i.imgur.com/Byni79f.png')
         .setFooter('Créé par Varg');
         message.channel.send(embedAide);
 
-    } else if (msg.search(/List/i) > -1 ){
+    } else if (msg.search('list') > -1 ){
         //Poste la liste des commandes
         var stringListMotCle = "aide, list, loth, kaamelott"
-        message.channel.send('LISTE DE MOTS CLE\nContextuels : ' + stringListMotCle + '.\nAudio : ', {files: ["https://i.imgur.com/cOfpiua.jpg"]});
-    } else if (msg.search(/Loth/i) > -1 ){
+        message.channel.send('LISTE DE MOTS CLE\nContextuels : ' + stringListMotCle + '.\nAudio : ', {files: ["https://i.imgur.com/ayriZMk.jpg"]});
+
+    } else if (msg.search('loth') > -1 ){
         //Poste une citation de Loth
         message.channel.send(listeCitaLoth[Math.floor(Math.random()*listeCitaLoth.length)]);
 
-    } else if (msg.search(/Kaamelott/i) > -1){
+    } else if (msg.search('kaamelott') > -1){
         //Affiche les points pour l'utilisation des citations audio Kaamelott
         if (!points[message.author.id]) points[message.author.id] = {
             points: 0,
@@ -78,9 +89,10 @@ bot.on('message', message=>{
 
     } else {
         //Diffuse dans le channel vocal les citations audio Kaamelott 
-        for(var i = 0; i < listMotCle.length ; i++){            
+        for(var i = 0; i < listMotCle.length ; i++){                   
             if (msg.search(listMotCle[i]) > -1 ) {
                 var position = i;
+
                 // Le user est-il sur un channel vocal ?
                 if (message.member.voice.channel) {
                     
@@ -91,37 +103,42 @@ bot.on('message', message=>{
                     voiceChannel
                         .join()
                         .then(connection => {
-                            // Accès au dossier des citations audio Kaamelott 
-                            fs.readdir(sounds, (err, files) => {
-                                var sound = files[position];
-                                connection.play(sounds + sound);
-                                if (!points[message.author.id]) points[message.author.id] = {
-                                    points: 0,
-                                    niveau: listeNomNiveau[Math.floor(Math.random()*listeNomNiveau.length)]
-                                    };
-                                let userData = points[message.author.id];
-                                userData.points++;
-                            
-                                fs.writeFile("./points.json", JSON.stringify(points), (err) => {
-                                    if (err) console.error(err)
-                                });
+                            connection.play(sounds + listSons[position]);
+                            if (!points[message.author.id]) points[message.author.id] = {
+                                points: 0,
+                                niveau: listeNomNiveau[Math.floor(Math.random()*listeNomNiveau.length)]
+                                };
+                            let userData = points[message.author.id];
+                            userData.points++;
+                        
+                            fs.writeFile("./points.json", JSON.stringify(points), (err) => {
+                                if (err) console.error(err)
                             });
                         })
                         .catch((err) => {
-                            //console.log(err);
-                            message.channel.send(err);
-                        });
+                            console.log(err);
+                        })
                 }
             }
         }
+        filesEE.emit('son_joue');
     }
     //Effacer les 100 dernier messages du channel
     const adminID = '298852151638097920'
-    if (message.content === "KML Clear Channel"){
+    if (message.content === "KM Clear Channel"){
         if (message.author.id === adminID){
             message.channel.bulkDelete(100)
         }
     }
+
+    filesEE.on('son_joue',function(){
+        if (message.member.voice.channel) {
+            let voiceChannel = message.member.voice.channel;
+            voiceChannel.leave((err) => {
+                console.log(err);
+            });
+        }
+    });
 })
 
 bot.login(process.env.TOKEN);
