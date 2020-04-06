@@ -23,9 +23,10 @@ var listeCitaLoth = [
 var listSons = new Array()
 fs.readdir(sounds, function (err, files) { if (err) throw err;
     files.forEach( function (file) {
-        listSons.push(file);     
+        listSons.push(file);    
     });
 });
+listSons.sort()
 
 /*_________Quand le bot se login_________*/
 bot.on('ready', () => {
