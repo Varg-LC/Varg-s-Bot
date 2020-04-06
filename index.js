@@ -51,7 +51,7 @@ bot.on('message', message=>{
         .setDescription('Citations audio et texte issues de Kaamelott')
         .addFields(
             //{ name: '\u200B', value: '\u200B' },
-            { name: 'Préfix : KM', value: 'Liste des mots clés : KML List. Scores : KM Kaamelott' })
+            { name: 'Préfix : KM', value: 'Liste des mots clés : KM List. Scores : KM Kaamelott' })
         .setImage('https://i.imgur.com/Byni79f.png')
         .setFooter('Créé par Varg');
         message.channel.send(embedAide);
@@ -121,7 +121,6 @@ bot.on('message', message=>{
                 }
             }
         }
-        filesEE.emit('son_joue');
     }
     //Effacer les 100 dernier messages du channel
     const adminID = '298852151638097920'
@@ -130,15 +129,6 @@ bot.on('message', message=>{
             message.channel.bulkDelete(100)
         }
     }
-
-    filesEE.on('son_joue',function(){
-        if (message.member.voice.channel) {
-            let voiceChannel = message.member.voice.channel;
-            voiceChannel.leave((err) => {
-                console.log(err);
-            });
-        }
-    });
 })
 
 bot.login(process.env.TOKEN);
