@@ -90,7 +90,7 @@ bot.on('message', message=>{
     } else {
         //Diffuse dans le channel vocal les citations audio Kaamelott 
         for(var i = 0; i < listMotCle.length ; i++){                   
-            if (msg.search(listMotCle[i]) > -1 ) {
+            if (msg === 'KM ' + listMotCle[i]){
                 var position = i;
 
                 // Le user est-il sur un channel vocal ?
