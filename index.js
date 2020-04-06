@@ -58,7 +58,7 @@ bot.on('message', message=>{
     } else if (msg.search('list') > -1 ){
         //Poste la liste des commandes
         var stringListMotCle = "aide, list, loth, kaamelott"
-        message.channel.send('LISTE DE MOTS CLE\nContextuels : ' + stringListMotCle + '.\nAudio : ', {files: ["https://i.imgur.com/ayriZMk.jpg"]});
+        message.channel.send('LISTE DE MOTS CLE\nContextuels : ' + stringListMotCle + '.\nAudio : ', {files: ["https://i.imgur.com/MVb7EUg.jpg"]});
 
     } else if (msg.search('loth') > -1 ){
         //Poste une citation de Loth
