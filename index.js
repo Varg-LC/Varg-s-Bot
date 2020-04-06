@@ -3,9 +3,6 @@ const fs = require("fs");
 const bot = new Discord.Client();
 const token = '';
 
-EventEmitter=require('events').EventEmitter,
-filesEE=new EventEmitter();
-
 const PREFIX = "KM"
 const sounds = './Sounds/';
 const playedGame = 'écrire : KM Aide';
@@ -91,7 +88,7 @@ bot.on('message', message=>{
     } else {
         //Diffuse dans le channel vocal les citations audio Kaamelott 
         for(var i = 0; i < listMotCle.length ; i++){                   
-            if (msg === 'KM ' + listMotCle[i]){
+            if (msg === 'km ' + listMotCle[i]){
                 var position = i;
 
                 // Le user est-il sur un channel vocal ?
