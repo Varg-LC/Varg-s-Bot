@@ -3,7 +3,7 @@
 Citations audio et texte issues de Kaamelott dans les channels Discord
 
 Crédit à https://github.com/LeoPenaguin/kaamelott-bot
-Pour une partie du code et pour les fichiers audio
+Pour le code et pour les fichiers audio
 
 Ajouts dans cette version :
 
